@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prestart": "mongod --dbpath ~/data/db --fork --logpath /dev/null",
     "start": "node ./bin/www",
+    "poststop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
     "test": "bin/mocha-test && bin/wdio-test",
+    "posttest": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
     "test:mocha": "bin/mocha-test || exit 0",
     "test:feature": "bin/wdio-test || exit 0"
   },
