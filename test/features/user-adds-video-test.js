@@ -10,8 +10,8 @@ const {assert} = require('chai');
       }
       browser.url('/videos/create.html');
       browser.setValue('#title-input', video.title);
-      browser.setValue('#title-description', video.description);
-      browser.setValue('#title-url', video.url);
+      browser.setValue('#description-input', video.description);
+      browser.setValue('#url-input', video.url);
       browser.click('#submit-button');
       assert.include(browser.getText('body'),video.title);
     })
