@@ -3,14 +3,14 @@ const request = require('supertest');
 const {jsdom} = require('jsdom');
 
 
-const {Video, connectDatabaseAndDropData, diconnectDatabase} = require('../setup-teardown-utils');
+const {Video, connectDatabaseAndDropData, disconnectDatabase} = require('../database-utilities');
 const app = require('../../app');
 
 describe('Server path: /', () => {
 
   beforeEach(connectDatabaseAndDropData);
 
-  afterEach(diconnectDatabase);
+  afterEach(disconnectDatabase);
 
  describe('Server path: /videos/create',() =>{
    const newVideo = {

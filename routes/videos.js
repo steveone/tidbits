@@ -13,7 +13,11 @@ videos.post('/', async (req,res,next) => {
       res.status(400).render('create', {newVideo: newVideo});
     } else {
       await newVideo.save();
-      res.redirect('/');
+      //res.status(201).send(newVideo.title).end();
+      res.locals.title = newVideo.title;
+      res.locals.description = newVideo.description;
+      res.locals.url = newVideo.url;
+      res.render('videos/show');
     }
   });
 

@@ -5,7 +5,7 @@ const connectDatabaseAndDropData = async () => {
   await mongoose.connection.db.dropDatabase();
 };
 
-const diconnectDatabase = async () => {
+const disconnectDatabase = async () => {
   await mongoose.disconnect();
 };
 
@@ -13,6 +13,6 @@ const Video = require('../models/video');
 
 module.exports = {
   connectDatabaseAndDropData,
-  diconnectDatabase,
+  disconnectDatabase,
   Video,
 };
