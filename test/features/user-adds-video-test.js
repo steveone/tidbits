@@ -8,7 +8,7 @@ const {assert} = require('chai');
         description: 'What is Unit Testing',
         url: 'https://www.youtube.com/watch?v=lj5nnGa_DIw'
       }
-      browser.url('/videos/create.html');
+      browser.url('/videos/create');
       browser.setValue('#title-input', video.title);
       browser.setValue('#description-input', video.description);
       browser.setValue('#url-input', video.url);
