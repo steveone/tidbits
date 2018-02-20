@@ -27,11 +27,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+app.use('/videos', videos);
 
-app.use('/videos/create', videos);
-
-app.use('/',(req,res,next) => {
-  res.render('index');
+app.use('/', async (req,res,next) => {
+  const videos = await Video.find({});
+  console.log(videos);
+  res.render('index',{videos});
 })
 
 // Catch 404 and forward to error handler

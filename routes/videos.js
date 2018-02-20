@@ -1,14 +1,22 @@
 
 const videos = require('express').Router();
 
+
 const Video= require('../models/video');
 
 
-videos.get('/',(req,res,next)=>{
+videos.get('/create', (req,res,next)=>{
   res.render('videos/create');
 })
 
-videos.post('/', async (req,res,next) => {
+videos.getVideos = async ()=>{
+  console.log("Returning videos");
+  const videos = await Video.find({});
+  console.log(videos);
+  res.render('../index',{videos});
+}
+
+videos.post('/create', async (req,res,next) => {
 
     const {title, description, url} = req.body;
     const newVideo = new Video({title, description, url});
