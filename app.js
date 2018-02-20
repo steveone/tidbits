@@ -26,14 +26,12 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use('/videos', videos);
 
-app.use('/', async (req,res,next) => {
-  const videos = await Video.find({});
-  console.log(videos);
-  res.render('index',{videos});
+app.get('/',(req,res,next) => {
+  res.redirect("/videos");
 })
+
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -16,7 +16,7 @@ describe('Server path: /', () => {
 
    it ('returns videos from database on / route', async () =>{
      const response = await request(app)
-     .get('/');
+     .get('/videos');
 
    })
 

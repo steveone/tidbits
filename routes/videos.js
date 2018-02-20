@@ -9,13 +9,6 @@ videos.get('/create', (req,res,next)=>{
   res.render('videos/create');
 })
 
-videos.getVideos = async ()=>{
-  console.log("Returning videos");
-  const videos = await Video.find({});
-  console.log(videos);
-  res.render('../index',{videos});
-}
-
 videos.post('/create', async (req,res,next) => {
 
     const {title, description, url} = req.body;
@@ -32,5 +25,11 @@ videos.post('/create', async (req,res,next) => {
       res.render('videos/show');
     }
   });
+
+ videos.get('/', async (req,res,next) => {
+    const videos = await Video.find({});
+    console.log(videos);
+    res.render('videos/index',{videos});
+  })
 
 module.exports = videos;
