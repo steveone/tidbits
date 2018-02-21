@@ -30,7 +30,24 @@ describe('Server path: /', () => {
 
  })
 
+ describe('Server path: /videos/create',() =>{
+   const newVideo = {
+     title: '',
+     description: 'What is Unit Testing',
+     url: 'https://www.youtube.com/watch?v=lj5nnGa_DIw'
+   }
 
+   it ('sends video to /videos/create path without title and video is not added to the database', async () =>{
+     const response = await request(app)
+     .post('/videos/create')
+     .type('form')
+     .send(newVideo);
+//     const response2 = await request(app)
+//     .get('/videos')
+//     .redirects(1); //allows handling of redirect
+     assert.equal(response.status,400);
+   })
+ })
 
 
 });
