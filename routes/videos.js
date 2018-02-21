@@ -15,7 +15,7 @@ videos.post('/create', async (req,res,next) => {
     const newVideo = new Video({title, description, url});
     newVideo.validateSync();
     if (newVideo.errors) {
-      res.status(400).render('videos/create', {newVideo: newVideo});
+      res.status(400).render('videos/create', {newVideo: newVideo, "error": "Missing Title"});
     } else {
       await newVideo.save();
       //res.status(201).send(newVideo.title).end();
@@ -28,7 +28,7 @@ videos.post('/create', async (req,res,next) => {
 
  videos.get('/', async (req,res,next) => {
     const videos = await Video.find({});
-    console.log(videos);
+//    console.log(videos);
     res.render('videos/index',{videos});
   })
 

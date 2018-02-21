@@ -17,10 +17,13 @@
       <form class="input-form" action="/videos/create" method="post" >
       <label class="form-label" for="title">Title</label>
       <input id="title-input" name="title" maxlength="50" value=""/>
+      {{#if error}}<span class="title-error">Title required</span>{{/if}}
       <label class="form-label" for="description">Description</label>
-      <input id="description-input" name="description" maxlength="50" value=""/>
+      <textarea id="description-input" name="description" maxlength="50">
+        {{#if newVideo.description}}{{newVideo.description}}{{/if}}
+      </textarea>
       <label class="form-label" for="url">url</label>
-      <input id="url-input" name="url" maxlength="200" value=""/>
+      <input id="url-input" name="url" maxlength="200" value="{{#if newVideo.url}}{{newVideo.url}}{{/if}}"/>
       <input id="submit-button" name="submit-button" type="submit" value="Submit"/>
   </div>
 </body>

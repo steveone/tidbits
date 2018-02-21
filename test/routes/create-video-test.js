@@ -1,6 +1,7 @@
 const {assert} = require('chai');
 const request = require('supertest');
 const {jsdom} = require('jsdom');
+const {parseTextFromHTML} = require('../test-util');
 
 
 const {Video, connectDatabaseAndDropData, disconnectDatabase} = require('../database-utilities');
@@ -49,5 +50,36 @@ describe('Server path: /', () => {
    })
  })
 
+ describe('Server path: /videos/create',() =>{
+   const newVideo = {
+     title: '',
+     description: 'What is Unit Testing',
+     url: 'https://www.youtube.com/watch?v=lj5nnGa_DIw'
+   }
+
+   it ('sends video to /videos/create path without title and video is not added but an error is returned on a form page', async () =>{
+     const response = await request(app)
+     .post('/videos/create')
+     .type('form')
+     .send(newVideo);
+     assert.equal(response.status,400);
+     assert.equal(parseTextFromHTML(response.text, '.title-error'), 'Title required');
+   })
+
+   it ('sends video to /videos/create path without title and video is not added but an description is preserved', async () =>{
+     const response = await request(app)
+     .post('/videos/create')
+     .type('form')
+     .send(newVideo)
+     .redirects(1);
+     assert.equal(response.status,400);
+     console.log("parse text next");
+     console.log(response.text);
+//     console.log(parseTextFromHTML(response.text, '#description-input'));
+     assert.equal(parseTextFromHTML(response.text, '#description-input'), newVideo.description);
+
+   })
+
+ })
 
 });
