@@ -73,9 +73,6 @@ describe('Server path: /', () => {
      .send(newVideo)
      .redirects(1);
      assert.equal(response.status,400);
-     console.log("parse text next");
-     console.log(response.text);
-//     console.log(parseTextFromHTML(response.text, '#description-input'));
      assert.equal(parseTextFromHTML(response.text, '#description-input'), newVideo.description);
      const imageUrlInput = jsdom(response.text).querySelector('#url-input');
      assert.equal(imageUrlInput.value, newVideo.url);
