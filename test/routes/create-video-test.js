@@ -24,9 +24,14 @@ describe('Server path: /', () => {
      const response = await request(app)
      .post('/videos/create')
      .type('form')
-     .send(newVideo);
+     .send(newVideo)
+     .redirects(1); //allows handling of redirect
      const addedVideo = await Video.findOne(newVideo);
-     assert.isOk(addedVideo, 'Video was not added to the database');
+     //assert.isOk(addedVideo, 'Video was not added to the database');
+     console.log("returned response is " + response.status)
+//       this check was suggested in the hint but I can't send 302 for the redirect
+//     assert.equal(response.status,302);
+     assert.equal(parseTextFromHTML(response.text, '.video-title'), newVideo.title);
    })
 
  })

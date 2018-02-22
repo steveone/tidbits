@@ -18,11 +18,8 @@ videos.post('/create', async (req,res,next) => {
       res.status(400).render('videos/create', {newVideo: newVideo, "error": "Missing Title"});
     } else {
       let videos = await newVideo.save();
-      //res.status(201).send(newVideo.title).end();
-      res.locals.title = newVideo.title;
-      res.locals.description = newVideo.description;
-      res.locals.url = newVideo.url;
-      res.render('videos/show',{videos});
+      let url = '/videos/' + videos._id;
+      res.redirect(302,url);
     }
   });
 
@@ -32,7 +29,6 @@ videos.post('/create', async (req,res,next) => {
    res.locals.title = videos.title;
    res.locals.description = videos.description;
    res.locals.url = videos.url;
-
    res.render('videos/show');
  })
 
