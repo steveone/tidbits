@@ -2,7 +2,7 @@ const {assert} = require('chai');
 
   describe(`user adds video using create video page`,()=>{
 
-    it('user can fill out the form to submit a new video',()=>{
+    it('user can fill out the form to submit a new video', ()=>{
       const video = {
         title: 'Unit testing',
         description: 'What is Unit Testing',

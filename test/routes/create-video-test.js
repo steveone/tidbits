@@ -66,7 +66,7 @@ describe('Server path: /', () => {
      assert.equal(parseTextFromHTML(response.text, '.title-error'), 'Title required');
    })
 
-   it ('sends video to /videos/create path without title and video is not added but an description is preserved', async () =>{
+   it ('sends video to /videos/create path without title and video is not added but a description is preserved', async () =>{
      const response = await request(app)
      .post('/videos/create')
      .type('form')
@@ -76,7 +76,6 @@ describe('Server path: /', () => {
      assert.equal(parseTextFromHTML(response.text, '#description-input'), newVideo.description);
      const imageUrlInput = jsdom(response.text).querySelector('#url-input');
      assert.equal(imageUrlInput.value, newVideo.url);
-
    })
 
  })

@@ -17,18 +17,27 @@ videos.post('/create', async (req,res,next) => {
     if (newVideo.errors) {
       res.status(400).render('videos/create', {newVideo: newVideo, "error": "Missing Title"});
     } else {
-      await newVideo.save();
+      let videos = await newVideo.save();
       //res.status(201).send(newVideo.title).end();
       res.locals.title = newVideo.title;
       res.locals.description = newVideo.description;
       res.locals.url = newVideo.url;
-      res.render('videos/show');
+      res.render('videos/show',{videos});
     }
   });
 
+ videos.get('/:id', async (req,res,next) => {
+   const id = req.params.id;
+   const videos = await Video.findOne({_id:id});
+   res.locals.title = videos.title;
+   res.locals.description = videos.description;
+   res.locals.url = videos.url;
+
+   res.render('videos/show');
+ })
+
  videos.get('/', async (req,res,next) => {
     const videos = await Video.find({});
-//    console.log(videos);
     res.render('videos/index',{videos});
   })
 

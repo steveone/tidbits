@@ -17,8 +17,6 @@ describe('Server path: /', () => {
 
  describe('Server path: / renders videos',() =>{
 
-
-
    it ('returns videos from database on /videos route', async () =>{
 
      const newVideoToAdd = {
@@ -31,7 +29,6 @@ describe('Server path: /', () => {
      const response = await request(app)
      .get('/videos')
      .redirects(1); //allows handling of redirect
-    // console.log(response.text);
      assert.equal(parseTextFromHTML(response.text, '.video-title'), newVideoToAdd.title);
 
    })
@@ -66,8 +63,9 @@ describe('Server path: /', () => {
      return video.id;
       });
 //  console.log(newVid._id);
+     let url = '/videos/' + newVid.id;
      const response = await request(app)
-     .get('/videos/:' + newVid._id)
+     .get(url)
      .redirects(1); //allows handling of redirect
      assert.equal(parseTextFromHTML(response.text, '.video-title'), newVideoToAdd.title);
   })
