@@ -30,6 +30,9 @@ describe('Server path: /', () => {
      .get('/videos')
      .redirects(1); //allows handling of redirect
      assert.equal(parseTextFromHTML(response.text, '.video-title'), newVideoToAdd.title);
+     assert.equal(parseTextFromHTML(response.text, '.video-description'), newVideoToAdd.description);
+     let urlContainer = jsdom(response.text).querySelector('.video-player');
+     assert.equal(urlContainer.src, newVideoToAdd.url);
 
    })
  })

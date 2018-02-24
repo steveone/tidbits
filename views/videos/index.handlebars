@@ -16,6 +16,7 @@
       {{#each videos as |video|}}
         <div class="video-card">
           <div class="video-title">{{video.title}}</div>
+          <div class="video-description">{{video.description}}</div>
           <iframe class="video-player" src="{{video.url}}" frameborder="0" allowfullscreen></iframe>
         </div>
       {{/each}}
