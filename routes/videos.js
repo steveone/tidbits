@@ -47,24 +47,29 @@ videos.post('/create', async (req,res,next) => {
   videos.post('/:id/updates', async (req,res,next) => {
     const id = req.params.id;
     const {title, description, url} = req.body;
-//    const newVideo = new Video({title, description, url});
-    const videos = await Video.findById(id, function (err, videos) {
-  if (err) return handleError(err);
-  videos.title = title;
-  videos.save(function (err, videos) {
-    if (err) {
-      const url = 'videos/' + id + '/update'
-      res.status(400).render(url, {newVideo: videos, "error": videos.errors});
-    }
+    const newVideo = new Video({title, description, url});
+    newVideo.validateSync();
+    if (newVideo.errors) {
+      res.status(400).render('videos/create', {newVideo: newVideo, "error": newVideo.errors});
+    } else {
+      const videos = await Video.findById(id, function (err, videos) {
+      if (err) return handleError(err);
+      videos.title = title;
+      videos.save(function (err, videos) {
+      if (err) {
+          const url = 'videos/' + id + '/update'
+          res.status(400).render(url, {newVideo: videos, "error": videos.errors});
+          }
+        })
+      })
     res.locals.title = videos.title;
     res.locals.description = videos.description;
     res.locals.url = videos.url;
     res.locals._id = req.params.id;
-    const errorUrl = '/videos/show/' + videos._id;
-    res.redirect(302,errorUrl);
-      });
-    });
-  })
+    const Url = '/videos/show/' + id;
+    res.redirect(302,Url);
+    }
+  });
 
  videos.get('/:id', async (req,res,next) => {
    const id = req.params.id;
