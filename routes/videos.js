@@ -52,14 +52,16 @@ videos.post('/create', async (req,res,next) => {
   if (err) return handleError(err);
   videos.title = title;
   videos.save(function (err, videos) {
-    if (err) return handleError(err);
+    if (err) {
+      const url = 'videos/' + id + '/update'
+      res.status(400).render(url, {newVideo: videos, "error": videos.errors});
+    }
     res.locals.title = videos.title;
     res.locals.description = videos.description;
     res.locals.url = videos.url;
     res.locals._id = req.params.id;
-    res.status(302).render('videos/show');
-    let url = '/videos/show/' + videos._id;
-    res.redirect(302,url);
+    const errorUrl = '/videos/show/' + videos._id;
+    res.redirect(302,errorUrl);
       });
     });
   })
