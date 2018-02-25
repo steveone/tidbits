@@ -15,9 +15,6 @@ videos.post('/create', async (req,res,next) => {
     const newVideo = new Video({title, description, url});
     newVideo.validateSync();
     if (newVideo.errors) {
-//      console.log("there is a newVideo error")
-//      console.log(`${title},${description},${url}`);
-//      console.log(newVideo.errors.description.message);
       res.status(400).render('videos/create', {newVideo: newVideo, "error": newVideo.errors});
     } else {
       let videos = await newVideo.save();
@@ -26,9 +23,30 @@ videos.post('/create', async (req,res,next) => {
     }
   });
 
+  videos.get('/show/:id', async (req,res,next) => {
+    console.log("get show request");
+    const id = req.params.id;
+    const videos = await Video.findById(id);
+    res.locals.title = videos.title;
+    res.locals.description = videos.description;
+    res.locals.url = videos.url;
+    res.locals._id = req.params.id;
+    res.render('videos/show');
+  })
+
+  videos.get('/:id/edit', async (req,res,next) => {
+    const id = req.params.id;
+    const videos = await Video.findById(id);
+    res.locals.title = videos.title;
+    res.locals.description = videos.description;
+    res.locals.url = videos.url;
+    res.locals.id = req.params.id;
+    res.render('videos/edit');
+  })
+
  videos.get('/:id', async (req,res,next) => {
    const id = req.params.id;
-   const videos = await Video.findOne({_id:id});
+   const videos = await Video.findById(id);
    res.locals.title = videos.title;
    res.locals.description = videos.description;
    res.locals.url = videos.url;

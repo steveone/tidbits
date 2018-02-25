@@ -76,9 +76,6 @@ describe('Server path: /', () => {
   })
  })
 
-});
-
-describe('videos create path returns',()=>{
   describe('tries to create a video without a description and an error is returned',() =>{
     const newVideo = {
       title: 'test video',
@@ -92,6 +89,36 @@ describe('videos create path returns',()=>{
       .send(newVideo);
       assert.equal(response.status,400);
       assert.equal(parseTextFromHTML(response.text, '.description-error'), 'Path `description` is required.');
+    })
+
+  })
+
+  describe('returns a filled out form when called with a valid id',() =>{
+
+
+    it ('calls an edit page and gets a filled out form', async () =>{
+      const newVideoToAdd = {
+        title: 'test video',
+        description: 'video description',
+        url: 'https://www.youtube.com/watch?v=lj5nnGa_DIw'
+      }
+      const newVideo = new Video(newVideoToAdd);
+      const newVid = await newVideo.save(function(err,video) {
+        return video.id;
+      });
+
+      let url = '/videos/' + newVid.id + '/edit';
+      const response = await request(app)
+      .get(url)
+      .redirects(1); //allows handling of redirect
+      let title = jsdom(response.text).querySelector('#title-input');
+      assert.equal(title.value, newVideoToAdd.title);
+      let description = jsdom(response.text).querySelector('#description-input');
+      assert.equal(description.value, newVideoToAdd.description);
+      let inputUrl = jsdom(response.text).querySelector('#url-input');
+      assert.equal(inputUrl.value, newVideoToAdd.url);
+      let id = jsdom(response.text).querySelector('#id');
+      assert.equal(id.value, newVid.id);
     })
 
   })
