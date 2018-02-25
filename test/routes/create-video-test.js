@@ -68,7 +68,7 @@ describe('Server path: /', () => {
      .type('form')
      .send(newVideo);
      assert.equal(response.status,400);
-     assert.equal(parseTextFromHTML(response.text, '.title-error'), 'Title required');
+     assert.equal(parseTextFromHTML(response.text, '.title-error'), 'Path `title` is required.');
    })
 
    it ('sends video to /videos/create path without title and video is not added but a description is preserved', async () =>{

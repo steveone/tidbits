@@ -15,7 +15,10 @@ videos.post('/create', async (req,res,next) => {
     const newVideo = new Video({title, description, url});
     newVideo.validateSync();
     if (newVideo.errors) {
-      res.status(400).render('videos/create', {newVideo: newVideo, "error": "Missing Title"});
+//      console.log("there is a newVideo error")
+//      console.log(`${title},${description},${url}`);
+//      console.log(newVideo.errors.description.message);
+      res.status(400).render('videos/create', {newVideo: newVideo, "error": newVideo.errors});
     } else {
       let videos = await newVideo.save();
       let url = '/videos/' + videos._id;

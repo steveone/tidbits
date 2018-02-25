@@ -16,13 +16,15 @@
       <h1 id="create-video-h1">Save a video</h1>
       <form class="input-form" action="/videos/create" method="post" >
       <label class="form-label" for="title">Title</label>
+      {{#if error.title}}<span class="title-error">{{error.title.message}}</span>{{/if}}
       <input id="title-input" name="title" maxlength="50" value=""/>
-      {{#if error}}<span class="title-error">Title required</span>{{/if}}
       <label class="form-label" for="description">Description</label>
+      {{#if error.description}}<span class="description-error">{{error.description.message}}</span>{{/if}}
       <textarea id="description-input" name="description" maxlength="50">
         {{#if newVideo.description}}{{newVideo.description}}{{/if}}
       </textarea>
       <label class="form-label" for="url">url</label>
+      {{#if error.url}}<span class="url-error">{{error.url.message}}</span>{{/if}}
       <input id="url-input" name="url" maxlength="200" value="{{#if newVideo.url}}{{newVideo.url}}{{/if}}"/>
       <input id="submit-button" name="submit-button" type="submit" value="Submit"/>
   </div>
