@@ -32,6 +32,7 @@ videos.post('/create', async (req,res,next) => {
    res.locals.title = videos.title;
    res.locals.description = videos.description;
    res.locals.url = videos.url;
+   res.locals._id = req.params.id;
    res.render('videos/show');
  })
 
