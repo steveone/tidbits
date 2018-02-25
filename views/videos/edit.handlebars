@@ -14,7 +14,7 @@
     </div>
     <div id="Save-Video-Container" class="contents-container">
       <h1 id="create-video-h1">Edit a video</h1>
-      <form class="input-form" action="/videos/create" method="post" >
+      <form class="input-form" action="/videos/{{id}}/updates" method="post" >
       <label class="form-label" for="title">Title</label>
       {{#if error.title}}<span class="title-error">{{error.title.message}}</span>{{/if}}
       <input id="title-input" name="title" maxlength="50" value="{{title}}"/>
@@ -25,7 +25,7 @@
       {{#if error.url}}<span class="url-error">{{error.url.message}}</span>{{/if}}
       <input id="url-input" name="url" maxlength="200" value="{{#if url}}{{url}}{{/if}}"/>
       <input type="hidden" id="id" name="id" maxlength="200" value="{{#if id}}{{id}}{{/if}}"/>
-      <input id="Update-button" name="Update-button" type="submit" value="Update"/>
+      <input id="submit-button" name="Update-button" type="submit" value="Update"/>
   </div>
 </body>
 </html>

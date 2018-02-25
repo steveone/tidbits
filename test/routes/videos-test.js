@@ -94,8 +94,6 @@ describe('Server path: /', () => {
   })
 
   describe('returns a filled out form when called with a valid id',() =>{
-
-
     it ('calls an edit page and gets a filled out form', async () =>{
       const newVideoToAdd = {
         title: 'test video',
@@ -120,6 +118,33 @@ describe('Server path: /', () => {
       let id = jsdom(response.text).querySelector('#id');
       assert.equal(id.value, newVid.id);
     })
-
   })
+  describe('updates edit form',() =>{
+    it ('calls update and the video is updated in the database', async () =>{
+      const newVideoToAdd = {
+        title: 'test video',
+        description: 'video description',
+        url: 'https://www.youtube.com/watch?v=lj5nnGa_DIw'
+      }
+      const newVideo = new Video(newVideoToAdd);
+      const newVid = await newVideo.save(function(err,video) {
+        return video.id;
+      });
+      const newVideoUpdated = {
+        title : 'Newly updated video',
+        description: newVideo.description,
+        url: newVideo.url
+      }
+      //const updatedVideo = new Video(newVideoUpdated);
+      let url = '/videos/' + newVid.id + '/updates/';
+      const response = await request(app)
+      .post(url)
+      .type('form')
+      .send(newVideoUpdated);
+      assert.equal(response.status,302);
+      let showUrl = '/videos/show/' + newVid.id;
+      assert.equal(response.headers.location,showUrl)
+    })
+  })
+
 })

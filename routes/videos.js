@@ -44,6 +44,26 @@ videos.post('/create', async (req,res,next) => {
     res.render('videos/edit');
   })
 
+  videos.post('/:id/updates', async (req,res,next) => {
+    const id = req.params.id;
+    const {title, description, url} = req.body;
+//    const newVideo = new Video({title, description, url});
+    const videos = await Video.findById(id, function (err, videos) {
+  if (err) return handleError(err);
+  videos.title = title;
+  videos.save(function (err, videos) {
+    if (err) return handleError(err);
+    res.locals.title = videos.title;
+    res.locals.description = videos.description;
+    res.locals.url = videos.url;
+    res.locals._id = req.params.id;
+    res.status(302).render('videos/show');
+    let url = '/videos/show/' + videos._id;
+    res.redirect(302,url);
+      });
+    });
+  })
+
  videos.get('/:id', async (req,res,next) => {
    const id = req.params.id;
    const videos = await Video.findById(id);
