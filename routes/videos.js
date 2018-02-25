@@ -50,7 +50,11 @@ videos.post('/create', async (req,res,next) => {
     const newVideo = new Video({title, description, url});
     newVideo.validateSync();
     if (newVideo.errors) {
-      res.status(400).render('videos/create', {newVideo: newVideo, "error": newVideo.errors});
+      res.locals.title = title;
+      res.locals.description = description;
+      res.locals.url = url;
+      res.locals.id = req.params.id;
+      res.status(400).render('videos/edit', {newVideo: newVideo, "error": newVideo.errors});
     } else {
       const videos = await Video.findById(id, function (err, videos) {
       if (err) return handleError(err);
