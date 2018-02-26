@@ -18,9 +18,11 @@
           <div class="video-description">{{description}}</div>
 
         </div>
-        <iframe class="video-player" src="{{url}}" frameborder="0" allowfullscreen></iframe>
+        <iframe  width="560" height="315" class="video-player" src="{{url}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         <a href="/videos/{{_id}}/edit" id="edit">Edit a Video</a>
-        <a href="/videos/{{_id}}/delete" id="delete">Delete a Video</a>
+        <form class="input-form" action="/videos/{{_id}}/deletions" method="post" >
+        <input id="delete" name="Update-button" type="submit" value="Delete a Video"/>
+      </form>
 
   </div>
 </body>

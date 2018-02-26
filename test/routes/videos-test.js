@@ -219,8 +219,10 @@ describe('Server path: /', () => {
       //const updatedVideo = new Video(newVideoUpdated);
       let url = '/videos/' + newVid.id + '/deletions/';
       const response = await request(app)
-      .post(url);
-      let showUrl = '/videos';
+      .post(url)
+      .type('form')
+      .send(newVideoUpdated)
+      let showUrl = '/';
       assert.equal(response.headers.location,showUrl)
     })
   })
