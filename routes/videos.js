@@ -75,6 +75,14 @@ videos.post('/create', async (req,res,next) => {
     }
   });
 
+  videos.post('/:id/deletions', async (req,res,next) => {
+    const id = req.params.id;
+    const videos = await Video.findById(id).remove().exec();
+    const Url = '/videos';
+    res.redirect(200,Url);
+  });
+
+
  videos.get('/:id', async (req,res,next) => {
    const id = req.params.id;
    const videos = await Video.findById(id);

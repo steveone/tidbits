@@ -32,7 +32,7 @@ const {assert} = require('chai');
       browser.click('#edit');
       browser.setValue('#title-input',updatedTitle);
       browser.click('#submit-button');
-      assert.include(browser.getText('body'),updatedTitle);
+      assert.include(browser.getText('.video-title'),updatedTitle);
 
     })
   })

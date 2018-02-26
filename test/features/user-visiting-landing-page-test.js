@@ -50,7 +50,7 @@ describe(`User visits landing page`,()=>{
       //get main landindg page
 
       addVideoForTesting();
-      browser.url('/videos/');
+      browser.url('/videos');
       assert.isNotNull(browser.getHTML('<iframe>'));
     })
 
