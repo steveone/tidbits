@@ -107,7 +107,7 @@ describe('Server path: /', () => {
 
       let url = '/videos/' + newVid.id + '/edit';
       const response = await request(app)
-      .get(url)
+      .post(url)
       .redirects(1); //allows handling of redirect
       let title = jsdom(response.text).querySelector('#title-input');
       assert.equal(title.value, newVideoToAdd.title);

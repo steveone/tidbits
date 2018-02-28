@@ -7,22 +7,21 @@
     <link rel='stylesheet' href='stylesheets/style.css'>
   </head>
   <body>
-    <div class="title-container">
-      <div class="title-logo">
-        <img src="img/logo.svg" alt="">
-      </div>
-    </div>
     <div id="videos-container" class="contents-container">
         <div class="video-card">
           <div class="video-title">{{title}}</div>
-          <div class="video-description">{{description}}</div>
+          <form class="input-form" action="/videos/{{_id}}/edit" method="post" >
+             <input id="edit" name="Update-button" type="submit" value="Edit"/>
+          </form>
 
-        </div>
+          <form class="input-form" action="/videos/{{_id}}/deletions" method="post" >
+             <input id="delete" name="Update-button" type="submit" value="Delete"/>
+          </form>
+
+          </div>
         <iframe  width="560" height="315" class="video-player" src="{{url}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        <a href="/videos/{{_id}}/edit" id="edit">Edit a Video</a>
-        <form class="input-form" action="/videos/{{_id}}/deletions" method="post" >
-        <input id="delete" name="Update-button" type="submit" value="Delete a Video"/>
-      </form>
+        <div class="video-description">{{description}}</div>
+
 
   </div>
 </body>

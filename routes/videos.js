@@ -34,7 +34,7 @@ videos.post('/create', async (req,res,next) => {
     res.render('videos/show');
   })
 
-  videos.get('/:id/edit', async (req,res,next) => {
+  videos.post('/:id/edit', async (req,res,next) => {
     const id = req.params.id;
     const videos = await Video.findById(id);
     res.locals.title = videos.title;
